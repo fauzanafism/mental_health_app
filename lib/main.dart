@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mental_health_app/ui/pages/home_page.dart';
+import 'package:mental_health_app/ui/pages/main_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Mental Health App',
       initialRoute: '/',
-      routes: {'/': (context) => const HomePage()},
+      routes: {'/': (context) => const MainPage()},
     );
   }
 }
