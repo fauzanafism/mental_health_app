@@ -2,6 +2,7 @@ import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/common/constant.dart';
+import 'package:mental_health_app/ui/pages/chat_page.dart';
 import 'package:mental_health_app/ui/pages/session_page.dart';
 import 'package:mental_health_app/ui/pages/wellness_page.dart';
 
@@ -28,7 +29,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> widgetOptions = [
     const Home(),
     const Session(),
-    Container(),
+    const ChatPage(),
     const WellnessPage(),
   ];
 
