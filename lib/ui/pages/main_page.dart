@@ -1,4 +1,5 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/common/constant.dart';
 import 'package:mental_health_app/ui/pages/session_page.dart';
@@ -25,10 +26,10 @@ class _MainPageState extends State<MainPage> {
   int visit = 0;
 
   final List<Widget> widgetOptions = [
-    const WellnessPage(),
-    const Session(),
     const Home(),
+    const Session(),
     Container(),
+    const WellnessPage(),
   ];
 
   @override
@@ -36,13 +37,22 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.notifications_none_rounded,
-                size: 30,
+            Badge(
+              badgeContent: Text(
+                '3',
+                textAlign: TextAlign.center,
+                style: kBodyText.copyWith(color: Colors.white, fontSize: 10),
               ),
-              color: kColorBrown,
+              position: BadgePosition.topEnd(top: 5, end: 8),
+              badgeStyle: const BadgeStyle(badgeColor: kColorOrange),
+              child: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.notifications_none_rounded,
+                  size: 30,
+                ),
+                color: kColorBrown,
+              ),
             )
           ],
           backgroundColor: Colors.white,
