@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mental_health_app/common/constant.dart';
 
 class SmallBox extends StatelessWidget {
@@ -19,19 +20,19 @@ class SmallBox extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16), color: kColor2x1),
-        width: MediaQuery.of(context).size.width / 3,
-        height: 62,
+        width: (MediaQuery.of(context).size.width / 3).w,
+        height: 62.h,
         child: Row(
           children: [
             Icon(
               icons,
               color: kColorIconGrey,
             ),
-            const SizedBox(width: 10),
+            SizedBox(width: 10.w),
             Text(
               text,
               style: kBodyText.copyWith(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w900,
                   color: kColorBrown),
             )

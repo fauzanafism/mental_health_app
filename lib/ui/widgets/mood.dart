@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mental_health_app/common/constant.dart';
 
 class Mood extends StatelessWidget {
@@ -17,8 +18,8 @@ class Mood extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 59,
-          height: 62,
+          width: 59.w,
+          height: 62.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16), color: bgColor),
           child: Image.asset(imageUrl),

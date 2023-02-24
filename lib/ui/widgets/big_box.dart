@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mental_health_app/common/constant.dart';
 
 class BigBox extends StatelessWidget {
@@ -28,7 +29,7 @@ class BigBox extends StatelessWidget {
     return Container(
       decoration:
           BoxDecoration(color: color, borderRadius: BorderRadius.circular(16)),
-      height: 151,
+      height: 151.h,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Row(

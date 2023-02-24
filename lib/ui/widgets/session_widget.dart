@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mental_health_app/common/constant.dart';
 
 class SessionWidget extends StatelessWidget {
@@ -13,7 +14,7 @@ class SessionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 171,
+      height: 171.h,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
           color: const Color(0xffFEF3E7),
