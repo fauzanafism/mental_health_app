@@ -33,10 +33,10 @@ final TextStyle kButton = GoogleFonts.epilogue(
 
 // text theme
 final kTextTheme = TextTheme(
-  headline5: kHeading5,
-  headline6: kHeading5Bold,
-  subtitle1: kSubtitle,
-  bodyText2: kBodyText,
+  headlineSmall: kHeading5,
+  titleLarge: kHeading5Bold,
+  titleMedium: kSubtitle,
+  bodyMedium: kBodyText,
 );
 
 // const kColorScheme = ColorScheme(
