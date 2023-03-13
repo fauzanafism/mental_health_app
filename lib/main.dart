@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mental_health_app/ui/pages/login_page.dart';
 import 'package:mental_health_app/ui/pages/main_page.dart';
 
 void main() {
@@ -18,8 +19,12 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Mental Health App',
-            initialRoute: '/',
-            routes: {'/': (context) => const MainPage()},
+            initialRoute: LoginPage.route,
+            routes: {
+              LoginPage.route: (context) => const LoginPage(),
+              MainPage.route: (context) => const MainPage()
+            },
+            // theme: ThemeData(useMaterial3: true),
           );
         });
   }
