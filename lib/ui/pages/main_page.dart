@@ -1,5 +1,5 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/common/constant.dart';
 import 'package:mental_health_app/ui/pages/chat_page.dart';
@@ -38,14 +38,14 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            Badge(
+            badge.Badge(
               badgeContent: Text(
                 '3',
                 textAlign: TextAlign.center,
                 style: kBodyText.copyWith(color: Colors.white, fontSize: 10),
               ),
-              position: BadgePosition.topEnd(top: 5, end: 8),
-              badgeStyle: const BadgeStyle(badgeColor: kColorOrange),
+              position: badge.BadgePosition.topEnd(top: 5, end: 8),
+              badgeStyle: const badge.BadgeStyle(badgeColor: kColorOrange),
               child: IconButton(
                 onPressed: () {},
                 icon: const Icon(
