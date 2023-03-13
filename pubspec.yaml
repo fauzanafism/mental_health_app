@@ -31,11 +31,20 @@ environment:
 dependencies:
   awesome_bottom_bar: ^1.2.2
   badges: ^3.0.2
+  cached_network_image: ^3.2.3
+  cloud_firestore: ^4.4.4
   cupertino_icons: ^1.0.2
+  firebase_auth: ^4.2.10
+  firebase_storage: ^11.0.15
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.6.1
+  fluttertoast: ^8.2.1
   google_fonts: ^4.0.3
+  google_sign_in: ^6.0.2
+  image_picker: ^0.8.7
+  
+  shared_preferences: ^2.0.18
 
 dev_dependencies:
   flutter_lints: ^2.0.0
