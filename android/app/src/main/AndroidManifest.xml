@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zanomaly.mentalhealth.mental_health_app">
+    package="com.zanomaly.mentalhealthapp">
    <application
         android:label="mental_health_app"
         android:name="${applicationName}"

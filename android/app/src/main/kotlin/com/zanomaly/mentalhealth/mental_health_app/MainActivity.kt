@@ -1,4 +1,4 @@
-package com.zanomaly.mentalhealth.mental_health_app
+package com.zanomaly.mentalhealthapp
 
 import io.flutter.embedding.android.FlutterActivity
 
