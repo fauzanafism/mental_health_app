@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "978831638319",
+    "project_id": "chatapp-test-db808",
+    "storage_bucket": "chatapp-test-db808.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978831638319:android:5724d3c2d271d7379f6bda",
+        "android_client_info": {
+          "package_name": "com.zanomaly.mentalhealthapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978831638319-ahieh9k6tdvmn7uf2qeke0jnbuf2l0mc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zanomaly.mentalhealthapp",
+            "certificate_hash": "ce953944064212a5674f4782f255e14273e218f9"
+          }
+        },
+        {
+          "client_id": "978831638319-3au64v5aq4m8pmvt1uvpu63a2b2tc6mc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe28HqUkN-bNTdiRyfGmQACJulYrjJT2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978831638319-3au64v5aq4m8pmvt1uvpu63a2b2tc6mc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
