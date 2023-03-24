@@ -85,4 +85,29 @@ class AuthProvider extends ChangeNotifier {
       return false;
     }
   }
+
+  String? getFirebaseId() {
+    return prefs.getString("id");
+  }
+
+  Future<bool> isLoggedIn() async {
+    bool isLoggedIn = await googleSignIn.isSignedIn();
+    if (isLoggedIn && prefs.getString("id")?.isNotEmpty == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<void> handleSignOut() async {
+    _status = Status.uninitialized;
+    await firebaseAuth.signOut();
+    await googleSignIn.disconnect();
+    await googleSignIn.signOut();
+  }
+
+  void handleException() {
+    _status = Status.authenticateException;
+    notifyListeners();
+  }
 }
