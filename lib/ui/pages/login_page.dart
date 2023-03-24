@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mental_health_app/common/constant.dart';
 import 'package:mental_health_app/providers/auth_provider.dart';
-import 'package:mental_health_app/ui/pages/main_page.dart';
+import 'package:mental_health_app/ui/pages/pages.dart';
 import 'package:mental_health_app/ui/widgets/loading_view.dart';
 import 'package:provider/provider.dart';
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/common/constant.dart';
-import 'package:mental_health_app/ui/widgets/chip.dart';
-import 'package:mental_health_app/ui/widgets/post_widget.dart';
+import 'package:mental_health_app/ui/widgets/widgets.dart';
 
 class WellnessPage extends StatelessWidget {
   const WellnessPage({Key? key}) : super(key: key);

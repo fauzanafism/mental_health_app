@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/providers/auth_provider.dart';
-import 'package:mental_health_app/ui/pages/login_page.dart';
-import 'package:mental_health_app/ui/pages/main_page.dart';
+import 'package:mental_health_app/ui/pages/pages.dart';
 import 'package:provider/provider.dart';
 
 class Wrapper extends StatefulWidget {

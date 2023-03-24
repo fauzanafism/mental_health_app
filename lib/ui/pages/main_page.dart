@@ -3,14 +3,9 @@ import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/common/constant.dart';
 import 'package:mental_health_app/providers/auth_provider.dart';
-import 'package:mental_health_app/ui/pages/chat_page.dart';
-import 'package:mental_health_app/ui/pages/login_page.dart';
-import 'package:mental_health_app/ui/pages/profile_page.dart';
-import 'package:mental_health_app/ui/pages/session_page.dart';
-import 'package:mental_health_app/ui/pages/wellness_page.dart';
+import 'package:mental_health_app/ui/pages/pages.dart';
 import 'package:provider/provider.dart';
 
-import 'home_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);

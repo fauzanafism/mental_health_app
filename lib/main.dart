@@ -6,11 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mental_health_app/providers/auth_provider.dart';
-import 'package:mental_health_app/ui/pages/login_page.dart';
-import 'package:mental_health_app/ui/pages/main_page.dart';
-import 'package:mental_health_app/ui/pages/profile_page.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'ui/pages/pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/common/constant.dart';
 
-import 'package:mental_health_app/ui/widgets/big_box.dart';
-import 'package:mental_health_app/ui/widgets/session_widget.dart';
+import 'package:mental_health_app/ui/widgets/widgets.dart';
 
 class Session extends StatelessWidget {
   const Session({super.key});

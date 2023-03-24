@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/common/constant.dart';
-import 'package:mental_health_app/ui/widgets/big_box.dart';
-import 'package:mental_health_app/ui/widgets/mood.dart';
-import 'package:mental_health_app/ui/widgets/small_box.dart';
+
+import '../widgets/widgets.dart';
 
 class Home extends StatelessWidget {
   const Home({
