@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.white, fontSize: 46.sp)),
                   ],
                 ),
-                TextButton(
+                ElevatedButton(
                     onPressed: () async {
                       authProvider.handleSignIn().then((isSuccess) {
                         if (isSuccess) {
