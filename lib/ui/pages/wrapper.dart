@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({super.key});
+  static const route = '/splash';
 
   @override
   State<Wrapper> createState() => _WrapperState();
@@ -16,7 +17,9 @@ class _WrapperState extends State<Wrapper> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1), () {});
+    Future.delayed(const Duration(seconds: 1), () {
+      checkSignedIn();
+    });
   }
 
   void checkSignedIn() async {
@@ -28,12 +31,13 @@ class _WrapperState extends State<Wrapper> {
           MaterialPageRoute(
             builder: (context) => const MainPage(),
           ));
+    } else {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginPage(),
+          ));
     }
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const LoginPage(),
-        ));
   }
 
   @override
