@@ -90,6 +90,10 @@ class AuthProvider extends ChangeNotifier {
     return prefs.getString("id");
   }
 
+  String? getUserPhoto() {
+    return prefs.getString("photoUrl");
+  }
+
   Future<bool> isLoggedIn() async {
     bool isLoggedIn = await googleSignIn.isSignedIn();
     if (isLoggedIn && prefs.getString("id")?.isNotEmpty == true) {
