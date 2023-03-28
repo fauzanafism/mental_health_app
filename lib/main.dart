@@ -51,7 +51,8 @@ class MyApp extends StatelessWidget {
                 Wrapper.route: (context) => const Wrapper(),
                 LoginPage.route: (context) => const LoginPage(),
                 MainPage.route: (context) => const MainPage(),
-                ProfilePage.route: (context) => const ProfilePage()
+                ProfilePage.route: (context) => const ProfilePage(),
+                AddChatPage.route: (context) => const AddChatPage()
               },
               // theme: ThemeData(useMaterial3: true),
             ),
