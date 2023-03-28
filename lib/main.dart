@@ -46,8 +46,9 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Mental Health App',
-              initialRoute: LoginPage.route,
+              initialRoute: Wrapper.route,
               routes: {
+                Wrapper.route: (context) => const Wrapper(),
                 LoginPage.route: (context) => const LoginPage(),
                 MainPage.route: (context) => const MainPage(),
                 ProfilePage.route: (context) => const ProfilePage()
