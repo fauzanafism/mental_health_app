@@ -1,4 +1,5 @@
-export 'chat_page.dart';
+export 'list_chat_page.dart';
+export 'add_chat_page.dart';
 export 'home_page.dart';
 export 'login_page.dart';
 export 'main_page.dart';

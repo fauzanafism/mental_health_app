@@ -35,7 +35,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> widgetOptions = [
     const Home(),
     const Session(),
-    const ChatPage(),
+    const ListChatPage(),
     const WellnessPage(),
   ];
 

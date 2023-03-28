@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/common/constant.dart';
+import 'package:mental_health_app/ui/pages/add_chat_page.dart';
 
-class ChatPage extends StatelessWidget {
-  const ChatPage({super.key});
+class ListChatPage extends StatelessWidget {
+  const ListChatPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,9 @@ class ChatPage extends StatelessWidget {
               bottom: 1,
               right: 1,
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, AddChatPage.route);
+                },
                 backgroundColor: kColorOrange,
                 child: const Icon(
                   Icons.add,
