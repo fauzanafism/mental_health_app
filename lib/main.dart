@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mental_health_app/providers/auth_provider.dart';
+import 'package:mental_health_app/providers/providers.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,12 +35,21 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MultiProvider(
             providers: [
-              ChangeNotifierProvider(
+              ChangeNotifierProvider<AuthProvider>(
                 create: (_) => AuthProvider(
                     googleSignIn: GoogleSignIn(),
                     firebaseAuth: FirebaseAuth.instance,
                     firebaseFirestore: firebaseFirestore,
                     prefs: prefs),
+              ),
+              Provider<ListUserProvider>(
+                create: (context) => ListUserProvider(firebaseFirestore),
+              ),
+              Provider<ChatProvider>(
+                create: (context) => ChatProvider(
+                    prefs: prefs,
+                    firebaseFirestore: firebaseFirestore,
+                    firebaseStorage: firebaseStorage),
               )
             ],
             child: MaterialApp(
@@ -52,7 +61,9 @@ class MyApp extends StatelessWidget {
                 LoginPage.route: (context) => const LoginPage(),
                 MainPage.route: (context) => const MainPage(),
                 ProfilePage.route: (context) => const ProfilePage(),
-                AddChatPage.route: (context) => const AddChatPage()
+                AddChatPage.route: (context) => const AddChatPage(),
+                ChatPage.route: (context) => ChatPage(
+                    arguments: ModalRoute.of(context) as ChatPageArguments)
               },
               // theme: ThemeData(useMaterial3: true),
             ),
