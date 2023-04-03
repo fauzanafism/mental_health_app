@@ -37,7 +37,7 @@ class ChatProvider {
 
   Stream<QuerySnapshot> getChatStream(String groupChatId, int limit) {
     return firebaseFirestore
-        .collection("users")
+        .collection("messages")
         .doc(groupChatId)
         .collection(groupChatId)
         .orderBy('timestamp', descending: true)
