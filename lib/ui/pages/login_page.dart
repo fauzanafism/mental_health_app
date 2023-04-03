@@ -34,25 +34,33 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Wellbeing App',
+          style: kTitle,
+        ),
+        elevation: 0,
+        backgroundColor: Colors.white,
+      ),
       body: Stack(
         children: [
-          Container(
-            color: const Color(0xff53A06E),
-          ),
+          // Container(
+          //   color: const Color(0xff53A06E),
+          // ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
-                  children: [
-                    Text('YOUR',
-                        style: kTitle.copyWith(
-                            color: Colors.white, fontSize: 40.sp)),
-                    Text('LOVELY HOME',
-                        style: kTitle.copyWith(
-                            color: Colors.white, fontSize: 46.sp)),
-                  ],
-                ),
+                // Column(
+                //   children: [
+                //     Text('YOUR',
+                //         style: kTitle.copyWith(
+                //             color: Colors.white, fontSize: 40.sp)),
+                //     Text('LOVELY HOME',
+                //         style: kTitle.copyWith(
+                //             color: Colors.white, fontSize: 46.sp)),
+                //   ],
+                // ),
                 ElevatedButton(
                     onPressed: () async {
                       authProvider.handleSignIn().then((isSuccess) {
