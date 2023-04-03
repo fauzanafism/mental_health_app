@@ -63,7 +63,8 @@ class MyApp extends StatelessWidget {
                 ProfilePage.route: (context) => const ProfilePage(),
                 AddChatPage.route: (context) => const AddChatPage(),
                 ChatPage.route: (context) => ChatPage(
-                    arguments: ModalRoute.of(context) as ChatPageArguments)
+                    arguments: ModalRoute.of(context)?.settings.arguments
+                        as ChatPageArguments)
               },
               // theme: ThemeData(useMaterial3: true),
             ),
