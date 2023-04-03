@@ -1,9 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/common/constant.dart';
+import 'package:mental_health_app/providers/auth_provider.dart';
+import 'package:mental_health_app/providers/chat_provider.dart';
 import 'package:mental_health_app/ui/pages/add_chat_page.dart';
+import 'package:provider/provider.dart';
 
-class ListChatPage extends StatelessWidget {
+class ListChatPage extends StatefulWidget {
   const ListChatPage({super.key});
+
+  @override
+  State<ListChatPage> createState() => _ListChatPageState();
+}
+
+class _ListChatPageState extends State<ListChatPage> {
+  late AuthProvider authProvider;
+  late ChatProvider chatProvider;
+
+  late String currentUserId;
+
+  String grouChatId = '';
+
+  @override
+  void initState() {
+    super.initState();
+    chatProvider = context.read<ChatProvider>();
+    authProvider = context.read<AuthProvider>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +33,12 @@ class ListChatPage extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 6 / 8 + 10,
       child: Stack(
         children: [
+          Flexible(
+            child: ListView.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) {},
+            ),
+          ),
           Column(
             children: const [
               ChatList(
