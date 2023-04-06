@@ -27,7 +27,6 @@ class _AddChatPageState extends State<AddChatPage> {
     listUserProvider = context.read<ListUserProvider>();
     authProvider = context.read<AuthProvider>();
     if (authProvider.getFirebaseId()?.isNotEmpty == true) {
-      print(authProvider.getFirebaseId());
       currentUserId = authProvider.getFirebaseId()!;
     }
   }
