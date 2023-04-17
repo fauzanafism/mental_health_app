@@ -1,14 +1,17 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mental_health_app/common/constant.dart';
 import 'package:mental_health_app/models/message_chat.dart';
 import 'package:mental_health_app/providers/auth_provider.dart';
 import 'package:mental_health_app/providers/chat_provider.dart';
 import 'package:mental_health_app/ui/pages/login_page.dart';
+import 'package:mental_health_app/ui/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class ChatPage extends StatefulWidget {
@@ -103,6 +106,40 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
+  Future getImage() async {
+    ImagePicker imagePicker = ImagePicker();
+    XFile? pickedFile;
+
+    pickedFile = await imagePicker.pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      imageFile = File(pickedFile.path);
+      if (imageFile != null) {
+        setState(() {
+          isLoading = true;
+        });
+        uploadFile();
+      }
+    }
+  }
+
+  Future uploadFile() async {
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    UploadTask uploadTask = chatProvider.uploadFile(imageFile!, fileName);
+    try {
+      TaskSnapshot snapshot = await uploadTask;
+      imageUrl = await snapshot.ref.getDownloadURL();
+      setState(() {
+        isLoading = false;
+        onSendMessage(imageUrl, TypeMessage.image);
+      });
+    } on FirebaseException catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      Fluttertoast.showToast(msg: e.message ?? e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,6 +229,11 @@ class _ChatPageState extends State<ChatPage> {
               ));
   }
 
+  Widget buildLoading() {
+    return Positioned(
+        child: isLoading ? const LoadingView() : const SizedBox.shrink());
+  }
+
   Widget buildItem(int index, DocumentSnapshot? document) {
     if (document != null) {
       MessageChat messageChat = MessageChat.fromDocument(document);
@@ -213,10 +255,13 @@ class _ChatPageState extends State<ChatPage> {
                     child: Text(messageChat.content),
                   )
                 : messageChat.type == TypeMessage.image
-                    ? SizedBox(
-                        width: 200,
-                        height: 200,
-                        child: Image.network(messageChat.content),
+                    ? Material(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          messageChat.content,
+                          width: 200,
+                          height: 200,
+                        ),
                       )
                     : Container()
           ],
@@ -291,7 +336,7 @@ class _ChatPageState extends State<ChatPage> {
               margin: const EdgeInsets.symmetric(horizontal: 1),
               child: IconButton(
                 icon: const Icon(Icons.image),
-                onPressed: () {},
+                onPressed: getImage,
                 color: kColorOrange,
               ),
             ),
