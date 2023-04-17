@@ -156,8 +156,18 @@ class ChatList extends StatelessWidget {
               children: [
                 isMe ? const Icon(Icons.check_sharp) : Container(),
                 const SizedBox(width: 5),
+                (message.contains('https'))
+                    ? Row(
+                        children: const [
+                          Icon(Icons.photo),
+                          SizedBox(
+                            width: 5,
+                          )
+                        ],
+                      )
+                    : const SizedBox.shrink(),
                 Text(
-                  message,
+                  (message.contains('https')) ? 'Photo' : message,
                   overflow: TextOverflow.ellipsis,
                   style:
                       kBodyTextRubik.copyWith(fontSize: 13, color: kColorBrown),
