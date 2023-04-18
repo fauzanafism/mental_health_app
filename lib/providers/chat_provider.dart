@@ -24,12 +24,6 @@ class ChatProvider {
     return prefs.getString(key);
   }
 
-  UploadTask uploadFile(File image, String fileName) {
-    Reference reference = firebaseStorage.ref().child(fileName);
-    UploadTask uploadTask = reference.putFile(image);
-    return uploadTask;
-  }
-
   Future<void> updateDataFirestore(
       {required String collectionPath,
       required String docPath,
@@ -79,10 +73,16 @@ class ChatProvider {
     return firebaseFirestore
         .collection("messages")
         .doc(groupChatId)
-        .collection("messages")
+        .collection(groupChatId)
         .orderBy('timestamp', descending: true)
         .limit(20)
         .snapshots();
+  }
+
+  UploadTask uploadFile(File image, String fileName) {
+    Reference reference = firebaseStorage.ref().child(fileName);
+    UploadTask uploadTask = reference.putFile(image);
+    return uploadTask;
   }
 
   void sendMessage(String content, int type, String groupChatId,
@@ -90,7 +90,7 @@ class ChatProvider {
     DocumentReference documentReference = firebaseFirestore
         .collection("messages")
         .doc(groupChatId)
-        .collection("messages")
+        .collection(groupChatId)
         .doc(DateTime.now().millisecondsSinceEpoch.toString());
 
     DocumentReference recentChatUser =
@@ -112,6 +112,14 @@ class ChatProvider {
     var peerProfile = documentPeer.data() as Map<String, dynamic>;
 
     bool isMe = true;
+
+    String? userNick() {
+      return prefs.getString('nickname');
+    }
+
+    String? userPhoto() {
+      return prefs.getString('photoUrl');
+    }
 
     ListChatModel listChatModel = ListChatModel(
         id: peerId,
@@ -154,32 +162,39 @@ class ChatProvider {
         .collection('recentChat')
         .get()
         .then((value) => value.docs.map((e) => e.id).toList());
+
     if (!listDoc.contains(currentUserId)) {
-      FirebaseFirestore.instance.runTransaction((transaction) async {
-        transaction.set(recentChatUser, {peerId: {}});
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        transaction.set(recentChatUser, {peerId: listChatModel.toJson()});
       });
-      print('ini jalan');
     }
 
     // Input data ke collection recentChat user
-    FirebaseFirestore.instance.runTransaction((transaction) async {
-      transaction.update(recentChatUser, {peerId: listChatModel.toJson()});
-    });
+    if (listDoc.contains(currentUserId)) {
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        transaction.update(recentChatUser, {peerId: listChatModel.toJson()});
+      });
+    }
 
-    isMe = !isMe;
+    listChatModel.isMe = false;
+    listChatModel.nickname = userNick()!;
+    listChatModel.photoUrl = userPhoto()!;
+    listChatModel.id = currentUserId;
 
     if (!listDoc.contains(peerId)) {
-      FirebaseFirestore.instance.runTransaction((transaction) async {
-        transaction.set(recentChatPeer, {currentUserId: {}});
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        transaction
+            .set(recentChatPeer, {currentUserId: listChatModel.toJson()});
       });
-      print('ini jalan');
     }
 
     // Input data ke collection recentChat peer
-    FirebaseFirestore.instance.runTransaction((transaction) async {
-      transaction
-          .update(recentChatPeer, {currentUserId: listChatModel.toJson()});
-    });
+    if (listDoc.contains(peerId)) {
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        transaction
+            .update(recentChatPeer, {currentUserId: listChatModel.toJson()});
+      });
+    }
   }
 }
 
