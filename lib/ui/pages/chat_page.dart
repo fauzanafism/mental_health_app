@@ -53,6 +53,14 @@ class _ChatPageState extends State<ChatPage> {
     readLocal();
   }
 
+  void onFocusChange() {
+    if (focusNode.hasFocus) {
+      setState(() {
+        isShowSticker = false;
+      });
+    }
+  }
+
   void readLocal() {
     if (authProvider.getFirebaseId()?.isNotEmpty == true) {
       currentUserId = authProvider.getFirebaseId()!;
@@ -75,6 +83,13 @@ class _ChatPageState extends State<ChatPage> {
         collectionPath: 'user',
         docPath: currentUserId,
         dataNeedUpdate: {'chattingWith': peerId});
+  }
+
+  void getSticker() {
+    focusNode.unfocus();
+    setState(() {
+      isShowSticker = !isShowSticker;
+    });
   }
 
   void onSendMessage(String content, int type) {
@@ -140,6 +155,21 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
+  Future<bool> onBackPress() {
+    if (isShowSticker) {
+      setState(() {
+        isShowSticker = false;
+      });
+    } else {
+      chatProvider.updateDataFirestore(
+          collectionPath: 'user',
+          docPath: currentUserId,
+          dataNeedUpdate: {'chattingWith': null});
+      Navigator.pop(context);
+    }
+    return Future.value(false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -186,7 +216,11 @@ class _ChatPageState extends State<ChatPage> {
         child: Stack(
           children: [
             Column(
-              children: [buildListMessage(), buildInput()],
+              children: [
+                buildListMessage(),
+                isShowSticker ? buildSticker() : SizedBox.shrink(),
+                buildInput()
+              ],
             ),
           ],
         ),
@@ -263,7 +297,17 @@ class _ChatPageState extends State<ChatPage> {
                           height: 200,
                         ),
                       )
-                    : Container()
+                    : Container(
+                        margin: EdgeInsets.only(
+                            right: 10,
+                            bottom: isLastMessageRight(index) ? 20 : 10),
+                        child: Image.asset(
+                          "assets/images/${messageChat.content}.gif",
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                      )
           ],
         );
       } else {
@@ -321,6 +365,68 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
+  Widget buildSticker() {
+    return Expanded(
+      child: Container(
+        decoration: const BoxDecoration(
+            border: Border(top: BorderSide(color: kColorGrey, width: 0.5)),
+            color: Colors.white),
+        padding: const EdgeInsets.all(5),
+        height: 180,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                for (int i = 1; i < 4; i++)
+                  TextButton(
+                      onPressed: () => onSendMessage(
+                          'mimi${i.toString()}', TypeMessage.sticker),
+                      child: Image.asset(
+                        'assets/images/mimi${i.toString()}.gif',
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ))
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                for (int i = 4; i < 7; i++)
+                  TextButton(
+                      onPressed: () => onSendMessage(
+                          'mimi${i.toString()}', TypeMessage.sticker),
+                      child: Image.asset(
+                        'assets/images/mimi${i.toString()}.gif',
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ))
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                for (int i = 7; i < 10; i++)
+                  TextButton(
+                      onPressed: () => onSendMessage(
+                          'mimi${i.toString()}', TypeMessage.sticker),
+                      child: Image.asset(
+                        'assets/images/mimi${i.toString()}.gif',
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ))
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   Container buildInput() {
     return Container(
       width: double.infinity,
@@ -347,22 +453,20 @@ class _ChatPageState extends State<ChatPage> {
               margin: const EdgeInsets.symmetric(horizontal: 1),
               child: IconButton(
                 icon: const Icon(Icons.face),
-                onPressed: () {},
+                onPressed: getSticker,
                 color: kColorOrange,
               ),
             ),
           ),
           Flexible(
-            child: Container(
-              child: TextField(
-                onSubmitted: (value) {},
-                controller: textEditingController,
-                decoration: const InputDecoration.collapsed(
-                    hintText: 'Type your message...',
-                    hintStyle: TextStyle(color: kColorIconGrey)),
-                focusNode: focusNode,
-                autofocus: true,
-              ),
+            child: TextField(
+              onSubmitted: (value) {},
+              controller: textEditingController,
+              decoration: const InputDecoration.collapsed(
+                  hintText: 'Type your message...',
+                  hintStyle: TextStyle(color: kColorIconGrey)),
+              focusNode: focusNode,
+              autofocus: true,
             ),
           ),
           Material(
