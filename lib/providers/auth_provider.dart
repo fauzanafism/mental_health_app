@@ -90,6 +90,10 @@ class AuthProvider extends ChangeNotifier {
     return prefs.getString("id");
   }
 
+  String? getUserNickname() {
+    return prefs.getString("nickname");
+  }
+
   String? getUserPhoto() {
     return prefs.getString("photoUrl");
   }
