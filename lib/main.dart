@@ -27,6 +27,10 @@ class MyApp extends StatelessWidget {
 
   MyApp({Key? key, required this.prefs}) : super(key: key);
 
+  // TODO: Buat group chat? branch main
+  // TODO: Buat sistem local notification? branch main
+  // TODO: Tab 4 masih belum tau buat apaan
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -54,7 +58,7 @@ class MyApp extends StatelessWidget {
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'Mental Health App',
+              title: 'RML App',
               initialRoute: Wrapper.route,
               routes: {
                 Wrapper.route: (context) => const Wrapper(),
