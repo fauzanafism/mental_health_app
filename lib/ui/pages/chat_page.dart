@@ -218,7 +218,7 @@ class _ChatPageState extends State<ChatPage> {
             Column(
               children: [
                 buildListMessage(),
-                isShowSticker ? buildSticker() : SizedBox.shrink(),
+                isShowSticker ? buildSticker() : const SizedBox.shrink(),
                 buildInput()
               ],
             ),
@@ -289,12 +289,15 @@ class _ChatPageState extends State<ChatPage> {
                     child: Text(messageChat.content),
                   )
                 : messageChat.type == TypeMessage.image
-                    ? Material(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          messageChat.content,
-                          width: 200,
-                          height: 200,
+                    ? Container(
+                        constraints:
+                            const BoxConstraints(maxWidth: 200, maxHeight: 200),
+                        margin: const EdgeInsets.only(bottom: 10, left: 10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            messageChat.content,
+                          ),
                         ),
                       )
                     : Container(
@@ -331,12 +334,26 @@ class _ChatPageState extends State<ChatPage> {
                           child: Text(messageChat.content),
                         )
                       : messageChat.type == TypeMessage.image
-                          ? SizedBox(
-                              width: 200,
-                              height: 200,
-                              child: Image.network(messageChat.content),
+                          ? Container(
+                              constraints: const BoxConstraints(
+                                  maxWidth: 200, maxHeight: 200),
+                              margin:
+                                  const EdgeInsets.only(bottom: 10, left: 10),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(messageChat.content)),
                             )
-                          : Container(),
+                          : Container(
+                              margin: EdgeInsets.only(
+                                  right: 10,
+                                  bottom: isLastMessageRight(index) ? 20 : 10),
+                              child: Image.asset(
+                                "assets/images/${messageChat.content}.gif",
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                 ],
               ),
               isLastMessageLeft(index)
