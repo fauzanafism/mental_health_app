@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mental_health_app/common/constant.dart';
 import 'package:mental_health_app/providers/auth_provider.dart';
 import 'package:mental_health_app/ui/pages/pages.dart';
 import 'package:mental_health_app/ui/widgets/loading_view.dart';
@@ -33,33 +32,14 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Wellbeing App',
-          style: kTitle,
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Container(
-          //   color: const Color(0xff53A06E),
-          // ),
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                // Column(
-                //   children: [
-                //     Text('YOUR',
-                //         style: kTitle.copyWith(
-                //             color: Colors.white, fontSize: 40.sp)),
-                //     Text('LOVELY HOME',
-                //         style: kTitle.copyWith(
-                //             color: Colors.white, fontSize: 46.sp)),
-                //   ],
-                // ),
+                Image.asset("assets/images/rmllogo.png"),
                 ElevatedButton(
                     onPressed: () async {
                       authProvider.handleSignIn().then((isSuccess) {
