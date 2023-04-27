@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:badges/badges.dart' as badge;
@@ -24,7 +25,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<TabItem> items = [
     const TabItem(icon: Icons.home),
-    const TabItem(icon: Icons.videocam),
+    const TabItem(icon: Icons.map),
     const TabItem(icon: Icons.chat_bubble),
     const TabItem(icon: Icons.people),
   ];
@@ -71,7 +72,16 @@ class _MainPageState extends State<MainPage> {
         exit(0);
       },
       child: Scaffold(
+          // extendBodyBehindAppBar: true,
           appBar: AppBar(
+            flexibleSpace: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(
+                  color: Colors.transparent,
+                ),
+              ),
+            ),
             actions: [
               badge.Badge(
                 badgeContent: Text(
@@ -91,7 +101,7 @@ class _MainPageState extends State<MainPage> {
                 ),
               )
             ],
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.white.withAlpha(200),
             leading: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, ProfilePage.route);
