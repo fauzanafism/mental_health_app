@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
-import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mental_health_app/common/constant.dart';
@@ -82,25 +81,25 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
             ),
-            actions: [
-              badge.Badge(
-                badgeContent: Text(
-                  '3',
-                  textAlign: TextAlign.center,
-                  style: kBodyText.copyWith(color: Colors.white, fontSize: 10),
-                ),
-                position: badge.BadgePosition.topEnd(top: 5, end: 8),
-                badgeStyle: const badge.BadgeStyle(badgeColor: kColorOrange),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.notifications_none_rounded,
-                    size: 30,
-                  ),
-                  color: kColorBrown,
-                ),
-              )
-            ],
+            // actions: [
+            //   badge.Badge(
+            //     badgeContent: Text(
+            //       '3',
+            //       textAlign: TextAlign.center,
+            //       style: kBodyText.copyWith(color: Colors.white, fontSize: 10),
+            //     ),
+            //     position: badge.BadgePosition.topEnd(top: 5, end: 8),
+            //     badgeStyle: const badge.BadgeStyle(badgeColor: kColorOrange),
+            //     child: IconButton(
+            //       onPressed: () {},
+            //       icon: const Icon(
+            //         Icons.notifications_none_rounded,
+            //         size: 30,
+            //       ),
+            //       color: kColorBrown,
+            //     ),
+            //   )
+            // ],
             backgroundColor: Colors.white.withAlpha(200),
             leading: GestureDetector(
               onTap: () {
