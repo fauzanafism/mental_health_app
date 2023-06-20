@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/common/constant.dart';
 import 'package:mental_health_app/models/user_chat.dart';
@@ -62,35 +63,25 @@ class _AddChatPageState extends State<AddChatPage> {
                               children: [
                                 ListTile(
                                   leading: userChat.photoUrl.isNotEmpty
-                                      ? Image.network(
-                                          userChat.photoUrl,
+                                      ? CachedNetworkImage(
+                                          imageUrl: userChat.photoUrl,
                                           fit: BoxFit.cover,
                                           width: 50,
                                           height: 50,
-                                          loadingBuilder: (context, child,
-                                              loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
+                                          progressIndicatorBuilder:
+                                              (context, url, loadingProgress) {
                                             return SizedBox(
                                               height: 50,
                                               width: 50,
                                               child: Center(
                                                   child:
                                                       CircularProgressIndicator(
-                                                color: Colors.green,
-                                                value: loadingProgress
-                                                            .expectedTotalBytes !=
-                                                        null
-                                                    ? loadingProgress
-                                                            .cumulativeBytesLoaded /
-                                                        loadingProgress
-                                                            .expectedTotalBytes!
-                                                    : null,
-                                              )),
+                                                          color: Colors.green,
+                                                          value: loadingProgress
+                                                              .progress)),
                                             );
                                           },
-                                          errorBuilder:
+                                          errorWidget:
                                               (context, error, stackTrace) =>
                                                   const Icon(
                                             Icons.account_circle,

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -179,29 +180,22 @@ class _ChatPageState extends State<ChatPage> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(17),
-              child: Image.network(
-                widget.arguments.peerAvatar,
+              child: CachedNetworkImage(
+                imageUrl: widget.arguments.peerAvatar,
                 fit: BoxFit.cover,
                 width: 35,
                 height: 35,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child;
-                  }
+                progressIndicatorBuilder: (context, url, loadingProgress) {
                   return SizedBox(
                     height: 35,
                     width: 35,
                     child: Center(
                         child: CircularProgressIndicator(
-                      color: Colors.green,
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
-                    )),
+                            color: Colors.green,
+                            value: loadingProgress.progress)),
                   );
                 },
-                errorBuilder: (context, error, stackTrace) => const Icon(
+                errorWidget: (context, url, error) => const Icon(
                   Icons.account_circle,
                   size: 35,
                 ),
@@ -295,8 +289,8 @@ class _ChatPageState extends State<ChatPage> {
                         margin: const EdgeInsets.only(bottom: 10, left: 10),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            messageChat.content,
+                          child: CachedNetworkImage(
+                            imageUrl: messageChat.content,
                           ),
                         ),
                       )
@@ -341,7 +335,8 @@ class _ChatPageState extends State<ChatPage> {
                                   const EdgeInsets.only(bottom: 10, left: 10),
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(messageChat.content)),
+                                  child: CachedNetworkImage(
+                                      imageUrl: messageChat.content)),
                             )
                           : Container(
                               margin: EdgeInsets.only(

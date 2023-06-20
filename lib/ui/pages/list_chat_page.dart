@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -134,7 +135,8 @@ class ChatList extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          leading: CircleAvatar(backgroundImage: NetworkImage(imageUrl)),
+          leading: CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(imageUrl)),
           onTap: onTap,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -157,8 +159,8 @@ class ChatList extends StatelessWidget {
                 isMe ? const Icon(Icons.check_sharp) : Container(),
                 const SizedBox(width: 5),
                 (message.contains('https'))
-                    ? Row(
-                        children: const [
+                    ? const Row(
+                        children: [
                           Icon(Icons.photo),
                           SizedBox(
                             width: 5,
@@ -166,8 +168,8 @@ class ChatList extends StatelessWidget {
                         ],
                       )
                     : (message.contains('mimi'))
-                        ? Row(
-                            children: const [
+                        ? const Row(
+                            children: [
                               Icon(Icons.gif),
                               SizedBox(
                                 width: 5,

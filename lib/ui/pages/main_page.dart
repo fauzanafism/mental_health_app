@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mental_health_app/common/constant.dart';
@@ -108,7 +109,7 @@ class _MainPageState extends State<MainPage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(userPhoto),
+                  backgroundImage: CachedNetworkImageProvider(userPhoto),
                 ),
               ),
             ),
