@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mental_health_app/providers/providers.dart';
 import 'package:provider/provider.dart';
@@ -24,12 +26,26 @@ class MyApp extends StatelessWidget {
   final SharedPreferences prefs;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
   MyApp({Key? key, required this.prefs}) : super(key: key);
 
   // TODO: Buat group chat? branch main
   // TODO: Buat sistem local notification? branch main
   // TODO: Tab 4 masih belum tau buat apaan
+
+  void registerNotification() {
+    firebaseMessaging.requestPermission();
+
+    firebaseMessaging.getToken().then((token) {
+      firebaseFirestore
+          .collection('users')
+          .doc('currentUserId')
+          .update({'pushToken': token});
+    }).catchError((err) {
+      Fluttertoast.showToast(msg: err.message.toString());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
