@@ -55,10 +55,10 @@ class _HomeState extends State<Home> {
           style: kSubtitle,
         ),
         const SizedBox(height: 15),
-        SingleChildScrollView(
+        const SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: const [
+            children: [
               Mood(
                 moodString: 'Survey',
                 imageUrl: 'assets/icons/Happy.png',
@@ -103,8 +103,8 @@ class _HomeState extends State<Home> {
           isGrey: true,
         ),
         const SizedBox(height: 30),
-        Row(
-          children: const [
+        const Row(
+          children: [
             SmallBox(
               icons: Icons.book,
               text: 'Journal',

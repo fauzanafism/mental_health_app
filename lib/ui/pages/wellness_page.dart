@@ -20,10 +20,10 @@ class WellnessPage extends StatelessWidget {
                   style: kSubtitle.copyWith(fontSize: 18),
                 ),
                 const SizedBox(height: 20),
-                SingleChildScrollView(
+                const SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: const [
+                    children: [
                       ChipActive(
                         label: 'Trending',
                       ),
