@@ -39,7 +39,10 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset("assets/images/rmllogo.png"),
+                Image.asset(
+                  "assets/images/rmllogo.png",
+                  height: 40,
+                ),
                 ElevatedButton(
                     onPressed: () async {
                       authProvider.handleSignIn().then((isSuccess) {
