@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -74,14 +73,6 @@ class _MainPageState extends State<MainPage> {
       child: Scaffold(
           // extendBodyBehindAppBar: true,
           appBar: AppBar(
-            flexibleSpace: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: Container(
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
             // actions: [
             //   badge.Badge(
             //     badgeContent: Text(
@@ -101,7 +92,7 @@ class _MainPageState extends State<MainPage> {
             //     ),
             //   )
             // ],
-            backgroundColor: Colors.white.withAlpha(200),
+            backgroundColor: Colors.white,
             leading: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, ProfilePage.route);
@@ -117,10 +108,7 @@ class _MainPageState extends State<MainPage> {
           ),
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              child: widgetOptions.elementAt(visit),
-            ),
+            child: widgetOptions.elementAt(visit),
           ),
           bottomNavigationBar: BottomBarInspiredFancy(
               onTap: (index) {

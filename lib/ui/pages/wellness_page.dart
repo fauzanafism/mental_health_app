@@ -7,8 +7,9 @@ class WellnessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: MediaQuery.of(context).size.height * 6 / 8 + 10,
+      padding: const EdgeInsets.symmetric(horizontal: 14),
       child: Stack(
         children: [
           SingleChildScrollView(

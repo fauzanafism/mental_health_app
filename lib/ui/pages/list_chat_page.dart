@@ -96,14 +96,17 @@ class _ListChatPageState extends State<ListChatPage> {
           Positioned(
               bottom: 1,
               right: 1,
-              child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, AddChatPage.route);
-                },
-                backgroundColor: kColorOrange,
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 14),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, AddChatPage.route);
+                  },
+                  backgroundColor: kColorOrange,
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                 ),
               ))
         ],
