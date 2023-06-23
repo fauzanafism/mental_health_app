@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -34,9 +35,11 @@ class _ChatPageState extends State<ChatPage> {
   String groupChatId = "";
 
   File? imageFile;
+  File? documentFile;
   bool isLoading = false;
   bool isShowSticker = false;
-  String imageUrl = "";
+  bool isShowAddFile = false;
+  String fileUrl = "";
 
   final TextEditingController textEditingController = TextEditingController();
   final FocusNode focusNode = FocusNode();
@@ -89,7 +92,16 @@ class _ChatPageState extends State<ChatPage> {
   void getSticker() {
     focusNode.unfocus();
     setState(() {
+      isShowAddFile = false;
       isShowSticker = !isShowSticker;
+    });
+  }
+
+  void showAddFile() {
+    focusNode.unfocus();
+    setState(() {
+      isShowSticker = false;
+      isShowAddFile = !isShowAddFile;
     });
   }
 
@@ -122,7 +134,7 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
-  Future getImage() async {
+  Future getImageFromCamera() async {
     ImagePicker imagePicker = ImagePicker();
     XFile? pickedFile;
 
@@ -133,20 +145,72 @@ class _ChatPageState extends State<ChatPage> {
         setState(() {
           isLoading = true;
         });
-        uploadFile();
+        uploadImageFile();
       }
     }
   }
 
-  Future uploadFile() async {
+  Future getImageFromGallery() async {
+    ImagePicker imagePicker = ImagePicker();
+    XFile? pickedFile;
+
+    pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      imageFile = File(pickedFile.path);
+      if (imageFile != null) {
+        setState(() {
+          isLoading = true;
+        });
+        uploadImageFile();
+      }
+    }
+  }
+
+  Future getDocumentFile() async {
+    FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'txt', 'csv', 'xlsx', 'docx', 'pptx'],
+      allowMultiple: false,
+    );
+    if (pickedFile != null) {
+      documentFile = File(pickedFile.files.single.path!);
+      if (documentFile != null) {
+        setState(() {
+          isLoading = true;
+        });
+        uploadDocumentFile();
+      }
+    }
+  }
+
+  Future uploadImageFile() async {
     String fileName = DateTime.now().millisecondsSinceEpoch.toString();
     UploadTask uploadTask = chatProvider.uploadFile(imageFile!, fileName);
     try {
       TaskSnapshot snapshot = await uploadTask;
-      imageUrl = await snapshot.ref.getDownloadURL();
+      fileUrl = await snapshot.ref.getDownloadURL();
       setState(() {
         isLoading = false;
-        onSendMessage(imageUrl, TypeMessage.image);
+        onSendMessage(fileUrl, TypeMessage.image);
+      });
+    } on FirebaseException catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      Fluttertoast.showToast(msg: e.message ?? e.toString());
+    }
+  }
+
+  // TODO Tampilin di list message, desain tampilanny
+  Future uploadDocumentFile() async {
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    UploadTask uploadTask = chatProvider.uploadFile(documentFile!, fileName);
+    try {
+      TaskSnapshot snapshot = await uploadTask;
+      fileUrl = await snapshot.ref.getDownloadURL();
+      setState(() {
+        isLoading = false;
+        onSendMessage(fileUrl, TypeMessage.document);
       });
     } on FirebaseException catch (e) {
       setState(() {
@@ -160,6 +224,10 @@ class _ChatPageState extends State<ChatPage> {
     if (isShowSticker) {
       setState(() {
         isShowSticker = false;
+      });
+    } else if (isShowAddFile) {
+      setState(() {
+        isShowAddFile = false;
       });
     } else {
       chatProvider.updateDataFirestore(
@@ -213,6 +281,7 @@ class _ChatPageState extends State<ChatPage> {
               children: [
                 buildListMessage(),
                 isShowSticker ? buildSticker() : const SizedBox.shrink(),
+                isShowAddFile ? buildAddFile() : const SizedBox.shrink(),
                 buildInput()
               ],
             ),
@@ -439,6 +508,36 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
+  Widget buildAddFile() {
+    return Expanded(
+      flex: 0,
+      child: Container(
+        decoration: const BoxDecoration(
+            border: Border(top: BorderSide(color: kColorGrey, width: 0.5)),
+            color: Colors.white),
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        height: 80,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+                onPressed: getImageFromCamera,
+                tooltip: 'Camera',
+                icon: const Icon(Icons.camera, color: kColorOrange)),
+            IconButton(
+                onPressed: getImageFromGallery,
+                tooltip: 'Gallery',
+                icon: const Icon(Icons.image, color: kColorOrange)),
+            IconButton(
+                onPressed: getDocumentFile,
+                tooltip: 'Document',
+                icon: const Icon(Icons.document_scanner, color: kColorOrange)),
+          ],
+        ),
+      ),
+    );
+  }
+
   Container buildInput() {
     return Container(
       width: double.infinity,
@@ -453,8 +552,8 @@ class _ChatPageState extends State<ChatPage> {
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 1),
               child: IconButton(
-                icon: const Icon(Icons.image),
-                onPressed: getImage,
+                icon: const Icon(Icons.add),
+                onPressed: showAddFile,
                 color: kColorOrange,
               ),
             ),
