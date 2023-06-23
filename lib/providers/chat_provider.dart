@@ -203,4 +203,5 @@ class TypeMessage {
   static const image = 1;
   static const sticker = 2;
   static const document = 3;
+  static const video = 4;
 }
